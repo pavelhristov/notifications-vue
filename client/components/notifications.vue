@@ -1,18 +1,18 @@
 <template>
   <div class="notifications-wrapper">
     <button class="btn" @click="toggleNotifications()">
-      Notifications ({{ notifications.length }})
+      Notifications ({{ notifications.filter(n=> !n.expired).length }})
       <span>
         <span class="background"></span>
-        <span class="count">{{ notifications.filter(n=> n.type === 'bonus').length }}</span>
+        <span class="count">{{ notifications.filter(n=> n.type === 'bonus' && !n.expired).length }}</span>
       </span>
     </button>
     <div class="drop-down" v-bind:class="{open: isOpen}">
       <div class="header">Notifications</div>
       <div class="notifications">
-        <div v-for="notification in notifications" :key="notification.id">
+        <div v-for="notification in notifications.filter(n=> !n.expired)" :key="notification.id">
           <div>
-            <span v-if="notification.seen">new</span>
+            <span v-if="!notification.seen">new</span>
           </div>
           <div class="notification-content">
             <div>
