@@ -1,19 +1,22 @@
 <template>
-  <div class="example">{{ msg }}</div>
+  <div class="wrapper">
+    <notifications />
+  </div>
 </template>
 
 <script>
+import notifications from "./notifications.vue";
+
 export default {
-  data() {
-    return {
-      msg: "Hello world!"
-    };
-  }
+  components: { notifications }
 };
 </script>
 
 <style lang="scss">
-.example {
-  color: red;
+.wrapper {
+  height: 600px;
+
+  background-color: #eff3f6;
+  font-family: "Montserrat", sans-serif;
 }
 </style>

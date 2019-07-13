@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import './variables.scss';
+
+.btn {
+    position: relative;
+    padding: 0.8em 1em;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    background-color: #fff;
+  
+    &:after {
+      content: "";
+      background: $lightBlue;
+      display: block;
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100%;
+      transition: all 0.8s ease-in-out;
+      border-radius: 5px;
+    }
+  
+    &:active:after {
+      opacity: 0.2;
+      width: 100%;
+      transition: 0s;
+    }
+  }
