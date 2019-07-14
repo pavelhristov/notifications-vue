@@ -49,6 +49,19 @@ export default (function () {
                     return Promise.reject(`Notification with id ${id} was not found!`);
                 }
             });
+        },
+        update(notification) {
+            return Promise.resolve().then(() => {
+                let toUpdate = notifications.find(n => n.id === notification.id);
+                toUpdate.seen = false;
+                for (const key in notification) {
+                    if (!notification.hasOwnProperty(key) || key === 'id') {
+                        continue;
+                    }
+
+                    toUpdate[key] = notification[key];
+                }
+            });
         }
     };
 })();

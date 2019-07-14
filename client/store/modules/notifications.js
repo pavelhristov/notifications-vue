@@ -81,6 +81,17 @@ const actions = {
         notificationsData.delete(notificationId).then(() => {
             dispatch('getAllNotifications');
         });
+    },
+    /**
+     * Updates notification in the API and signals for notifications update.
+     * 
+     * @param {Object} context context
+     * @param {Object} notification notification to update.
+     */
+    updateNotification({ dispatch }, notification) {
+        notificationsData.update(notification).then(() => {
+            dispatch('getAllNotifications');
+        });
     }
 };
 
