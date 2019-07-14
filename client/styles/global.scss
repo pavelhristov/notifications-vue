@@ -30,3 +30,9 @@
 .uppercase {
     text-transform: uppercase;
 }
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

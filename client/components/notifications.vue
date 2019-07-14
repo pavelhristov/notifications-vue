@@ -10,34 +10,24 @@
     <div class="drop-down" v-bind:class="{open: isOpen}">
       <div class="header uppercase">Notifications</div>
       <transition-group name="list" tag="div" class="notifications">
-        <div v-for="notification in notifications.filter(n=> !n.expired)" :key="notification.id">
-          <div>
-            <span v-if="!notification.seen" class="uppercase">new</span>
-          </div>
-          <div class="notification-content">
-            <div>
-              <img v-if="notification.image" :src="notification.image" />
-            </div>
-            <div>
-              <a v-if="notification.link" :href="notification.link">{{ notification.title }}</a>
-              <span v-else class="title">{{ notification.title }}</span>
-              <span v-if="notification.text">{{ notification.text }}</span>
-              <span v-if="notification.requirement">{{ notification.text }}</span>
-            </div>
-          </div>
-          <div>
-            <span v-if="notification.expires">{{ notification.expires }}</span>
-          </div>
-        </div>
+        <notificationItem
+          v-for="n in notifications.filter(n=> !n.expired)"
+          :key="n.id"
+          :notificationId="n.id"
+        />
       </transition-group>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
+import notificationItem from "./notification-item.vue";
 
 export default {
+  components: {
+    notificationItem
+  },
   computed: mapState({
     notifications: state => state.notifications.all,
     isOpen: state => state.notifications.isOpen
@@ -107,58 +97,7 @@ export default {
     background-color: #fff;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: 5px 17px;
-
-    > div {
-      border-bottom: 1px solid #eee;
-      &:last-child {
-        border-bottom: none;
-      }
-
-      > div:first-child {
-        text-align: right;
-        height: 23px;
-        > span {
-          margin-top: 8px;
-          display: inline-block;
-          font-size: 0.5em;
-          padding: 2px 9px;
-          color: #fff;
-          background-color: #8ac640;
-          border-radius: 5px;
-        }
-      }
-
-      .notification-content {
-        display: flex;
-
-        > div:first-child {
-          flex: 1;
-          img {
-            max-width: 40px;
-            max-height: 40px;
-            border-radius: 50%;
-          }
-        }
-
-        > div:last-child {
-          flex: 3;
-          font-size: 0.7rem;
-          padding: 5px 21px 5px 16px;
-          letter-spacing: 0.3px;
-          color: #888;
-
-          .title {
-            color: #000;
-          }
-        }
-      }
-
-      > div:last-child {
-        text-align: right;
-        font-size: 0.75rem;
-      }
-    }
+    padding: 0.5em 1rem;
 
     .list-enter-active,
     .list-leave-active {

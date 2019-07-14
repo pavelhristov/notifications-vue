@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper clearfix">
     <notifications />
   </div>
 </template>
@@ -14,8 +14,6 @@ export default {
 
 <style lang="scss">
 .wrapper {
-  height: 600px;
-
   background-color: #eff3f6;
   font-family: "Montserrat", sans-serif;
 }
