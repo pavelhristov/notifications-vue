@@ -35,8 +35,10 @@ export default (function () {
     return {
         getAll: () => Promise.resolve(JSON.parse(JSON.stringify(notifications))),
         add(notification) {
-            notification.id = ++id;
-            notifications.push(notification);
+            return Promise.resolve().then(() => {
+                notification.id = ++id;
+                notifications.push(notification);
+            });
         }
     };
 })();
