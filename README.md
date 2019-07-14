@@ -9,7 +9,7 @@
 
 There can be 3 main types of notifications: text, bonus, promotion and the data which comes from the API is in the following format
 
-```json
+```js
 [
   {
     id: 1321,

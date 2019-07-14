@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss">
 .notification-item {
-  padding: 0.3em;
+  padding: 0.5em 0.3em;
   border-bottom: 1px solid #eee;
 
   &:last-child {

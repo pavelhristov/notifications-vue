@@ -1,6 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 @import './shared.scss';
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+}
+
 .btn {
     position: relative;
     padding: 0.8em 1em;
