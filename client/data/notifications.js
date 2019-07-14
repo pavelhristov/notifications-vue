@@ -30,8 +30,13 @@ export default (function () {
         }
     ];
 
+    let id = Math.max.apply(Math, notifications.map(function (o) { return o.id; }));
 
     return {
-        getAll: () => Promise.resolve(JSON.parse(JSON.stringify(notifications)))
+        getAll: () => Promise.resolve(JSON.parse(JSON.stringify(notifications))),
+        add(notification) {
+            notification.id = ++id;
+            notifications.push(notification);
+        }
     };
 })();

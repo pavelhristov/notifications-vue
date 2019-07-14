@@ -22,6 +22,10 @@ const actions = {
 
             commit('setNotifications', notifications);
         });
+    },
+    pushNotification({ dispatch }, notification) {
+        notificationsData.add(notification);
+        dispatch('getAllNotifications');
     }
 };
 
