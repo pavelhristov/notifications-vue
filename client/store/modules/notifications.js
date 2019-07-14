@@ -70,6 +70,17 @@ const actions = {
         notificationsData.add(notification).then(() => {
             dispatch('getAllNotifications');
         });
+    },
+    /**
+     * Deletes notification from the API and signals for notifications update.
+     * 
+     * @param {Object} context context
+     * @param {Object} notificationId notification id to delete.
+     */
+    deleteNotification({ dispatch }, notificationId) {
+        notificationsData.delete(notificationId).then(() => {
+            dispatch('getAllNotifications');
+        });
     }
 };
 

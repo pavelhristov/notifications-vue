@@ -30,14 +30,24 @@ export default (function () {
         }
     ];
 
-    let id = Math.max.apply(Math, notifications.map(function (o) { return o.id; }));
+    let currentId = Math.max.apply(Math, notifications.map(function (o) { return o.id; }));
 
     return {
         getAll: () => Promise.resolve(JSON.parse(JSON.stringify(notifications))),
         add(notification) {
             return Promise.resolve().then(() => {
-                notification.id = ++id;
+                notification.id = ++currentId;
                 notifications.push(notification);
+            });
+        },
+        delete(id) {
+            return Promise.resolve().then(() => {
+                let index = notifications.map(x => x.id).indexOf(id);
+                if (index > -1) {
+                    notifications.splice(index, 1);
+                } else {
+                    return Promise.reject(`Notification with id ${id} was not found!`);
+                }
             });
         }
     };

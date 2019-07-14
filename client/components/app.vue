@@ -4,7 +4,8 @@
       <notifications />
     </div>
     <div>
-      <pushNotification />
+      <push-notification />
+      <delete-notification />
     </div>
   </div>
 </template>
@@ -12,9 +13,14 @@
 <script>
 import notifications from "./notifications.vue";
 import pushNotification from "./push-notification.vue";
+import deleteNotification from "./delete-notification.vue";
 
 export default {
-  components: { notifications, pushNotification }
+  components: {
+    notifications,
+    "push-notification": pushNotification,
+    "delete-notification": deleteNotification
+  }
 };
 </script>
 
