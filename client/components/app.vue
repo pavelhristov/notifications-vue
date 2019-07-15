@@ -9,9 +9,6 @@
 
 <script>
 import notifications from "./notifications.vue";
-import pushNotification from "./push-notification.vue";
-import deleteNotification from "./delete-notification.vue";
-import updateNotification from "./update-notification.vue";
 import tabs from "./tabs.vue";
 
 export default {

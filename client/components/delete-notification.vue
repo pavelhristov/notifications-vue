@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="simple-form">
     <label>
-      select notification to delete:
+      Select notification to delete:
       <select v-model="id">
         <option disabled value>Please select one</option>
         <option v-for="n in notifications" :key="n.id" :value="n.id">{{ n.title }} ({{ n.id }})</option>
       </select>
     </label>
-    <br />
 
     <button class="btn" @click="deleteNotification()">delete notification</button>
   </div>
@@ -35,3 +34,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import "../styles/simple-form.scss";
+</style>

@@ -15,13 +15,30 @@
       </div>
     </div>
     <div>
-      <span v-if="notification.expires">{{ notification.expires }}</span>
+      <span v-if="notification.date">{{ notification.date | localTime }}</span>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Vue from "vue";
+
+Vue.filter("localTime", function(value) {
+  if (value) {
+    let date = new Date(value);
+    let today = new Date();
+    if (
+      date.getDate() == today.getDate() &&
+      date.getMonth() == today.getMonth() &&
+      date.getFullYear() == today.getFullYear()
+    ) {
+      return date.toLocaleTimeString();
+    } else {
+      return date.toLocaleDateString();
+    }
+  }
+});
 
 export default {
   props: {
@@ -50,7 +67,7 @@ export default {
     > span {
       font-size: 0.6em;
       padding: 0.2em 1em;
-      color: #fff;
+      color: white;
       background-color: #8ac640;
       border-radius: 5px;
     }
@@ -76,7 +93,7 @@ export default {
       color: #888;
 
       .title {
-        color: #000;
+        color: black;
       }
     }
   }

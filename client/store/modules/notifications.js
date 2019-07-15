@@ -25,8 +25,7 @@ const actions = {
             notifications.forEach(n => {
                 if (ids.indexOf(n.id) > -1) { //update
                     let localNotification = state.all.find(ln => ln.id === n.id);
-                    // basic object comparison, going deep seems out of scope
-                    if (!localNotification.expired && JSON.stringify(n) !== JSON.stringify(localNotification)) { // check if its expired
+                    if (!localNotification.expired && !compareNotifications(n, localNotification)) { // check if its expired
                         toUpdate.push(n);
                         if (!localNotification.expires && (n.expires || n.expires === 0)) { // if expiration has been added
                             toQueueExpire.push(n);
@@ -132,6 +131,14 @@ function updateNotifications(state, notifications) {
         ...state.all.filter(n => ids.indexOf(n.id) < 0),
         ...notifications
     ];
+}
+
+function compareNotifications(n1, n2) {
+    return n1.title === n2.title &&
+        n1.text === n2.text &&
+        n1.image === n2.image &&
+        n1.link === n2.link &&
+        n1.requirement === n2.requirement;
 }
 
 export default {

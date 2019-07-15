@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="simple-form">
     <label>
-      select notification to update:
+      Select notification to update:
       <select v-model="id" @change="onSelectNotification($event)">
         <option disabled value>Please select one</option>
         <option
@@ -16,42 +16,37 @@
         </option>
       </select>
     </label>
+
     <div v-if="id">
       <label>
-        title
+        Title:
         <input type="text" v-model="model.title" />
       </label>
-      <br />
 
       <label>
-        image
+        Image:
         <input type="text" v-model="model.image" />
       </label>
-      <br />
 
       <label>
-        link
+        Link:
         <input type="text" v-model="model.link" />
       </label>
-      <br />
 
       <label>
-        text
+        Text:
         <textarea v-model="model.text"></textarea>
       </label>
-      <br />
 
       <label>
-        requirement:
+        Requirement:
         <input type="text" v-model="model.requirement" />
       </label>
-      <br />
 
       <label>
-        expires(ms):
+        Expires(ms):
         <input type="number" v-model.number="model.expires" />
       </label>
-      <br />
 
       <button class="btn" @click="updateNotification()">update notification</button>
     </div>
@@ -121,3 +116,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import "../styles/simple-form.scss";
+</style>

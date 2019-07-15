@@ -37,6 +37,7 @@ export default (function () {
         add(notification) {
             return Promise.resolve().then(() => {
                 notification.id = ++currentId;
+                notification.date = new Date();
                 notifications.push(notification);
             });
         },

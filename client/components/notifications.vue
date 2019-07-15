@@ -1,21 +1,18 @@
 <template>
   <div class="notifications-wrapper">
     <button class="btn" @click="toggleNotifications()">
-      Notifications ({{ notifications.filter(n=> !n.expired).length }})
+      Notifications ({{ notifications.length }})
       <span>
         <span class="background"></span>
-        <span class="count">{{ notifications.filter(n=> n.type !== 'bonus' && !n.expired).length }}</span>
+        <span class="count">{{ notifications.filter(n=> n.type !== 'bonus').length }}</span>
       </span>
     </button>
     <div class="drop-down" v-bind:class="{open: isOpen}">
       <div class="header uppercase">Notifications</div>
-      <transition-group name="list" tag="div" class="notifications">
-        <notificationItem
-          v-for="n in notifications.filter(n=> !n.expired)"
-          :key="n.id"
-          :notificationId="n.id"
-        />
+      <transition-group name="list" tag="div" class="notifications" v-if="notifications.length >0">
+        <notificationItem v-for="n in notifications" :key="n.id" :notificationId="n.id" />
       </transition-group>
+      <div v-else class="uppercase no-notifications">there are no notifications</div>
     </div>
   </div>
 </template>
@@ -29,7 +26,12 @@ export default {
     notificationItem
   },
   computed: mapState({
-    notifications: state => state.notifications.all,
+    notifications: state =>
+      state.notifications.all
+        .filter(n => !n.expired)
+        .sort((a, b) =>
+          a.date < b.date || (!a.date && b.date) ? 1 : b.date < a.date || (a.date && !b.date) ? -1 : 0
+        ),
     isOpen: state => state.notifications.isOpen
   }),
   methods: {
@@ -56,7 +58,7 @@ export default {
 
     span {
       @include abs-top-right;
-      color: #fff;
+      color: white;
       transform: translate(50%, -50%);
       z-index: 1;
 
@@ -81,7 +83,7 @@ export default {
     background-color: $lightBlue;
     @include border-top-radius(5px);
 
-    color: #fff;
+    color: white;
     font-size: 0.85em;
     letter-spacing: -0.2px;
     padding: 0.9em 1.4rem;
@@ -93,7 +95,7 @@ export default {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 330px;
-    background-color: #fff;
+    background-color: white;
     @include border-bottom-radius(5px);
     padding: 0.5em 1rem;
 
@@ -102,11 +104,23 @@ export default {
       transition: opacity 1s, transform 0.9s;
     }
 
-    .list-enter,
+    .list-enter {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
     .list-leave-to {
       opacity: 0;
       transform: translateX(30px);
     }
+  }
+
+  .no-notifications {
+    text-align: center;
+    color: $standartGrey;
+    font-size: 0.6em;
+    padding: 1em;
+    background-color: white;
   }
 }
 </style>

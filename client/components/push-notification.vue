@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="simple-form">
     <label>
-      type
+      Type:
       <select v-model="model.type">
         <option disabled value>Please select one</option>
         <option value="text">Text</option>
@@ -9,43 +9,36 @@
         <option value="Promotion">Promotion</option>
       </select>
     </label>
-    <br />
 
     <label>
-      title
+      Title:
       <input type="text" v-model="model.title" />
     </label>
-    <br />
 
     <label>
-      image
+      Image:
       <input type="text" v-model="model.image" />
     </label>
-    <br />
 
     <label>
-      link
+      Link:
       <input type="text" v-model="model.link" />
     </label>
-    <br />
 
     <label>
-      text
+      Text:
       <textarea v-model="model.text"></textarea>
     </label>
-    <br />
 
     <label>
-      requirement:
+      Requirement:
       <input type="text" v-model="model.requirement" />
     </label>
-    <br />
 
     <label>
-      expires(ms):
+      Expires(ms):
       <input type="number" v-model.number="model.expires" />
     </label>
-    <br />
 
     <button class="btn" @click="pushNotification()">push notification</button>
     <span class="notifier" :class="notifier.status">{{ notifier.message }}</span>
@@ -53,7 +46,6 @@
 </template>
 
 <script>
-import { setTimeout } from "timers";
 export default {
   data() {
     return {
@@ -129,4 +121,8 @@ export default {
     color: green;
   }
 }
+</style>
+
+<style>
+@import "../styles/simple-form.scss";
 </style>
