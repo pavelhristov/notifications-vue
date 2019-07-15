@@ -1,7 +1,7 @@
 /* variables*/
 
 $lightBlue: #6a98ee;
-
+$bp-phone: 480px;
 
 /* mixins */
 
@@ -44,4 +44,14 @@ $lightBlue: #6a98ee;
         left: $left;
         content: "";
     }
+}
+
+@mixin border-top-radius($radius: 1px){
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius: 1px){
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
 }

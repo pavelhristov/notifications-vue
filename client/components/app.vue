@@ -3,11 +3,7 @@
     <div class="nav clearfix">
       <notifications />
     </div>
-    <div>
-      <push-notification />
-      <delete-notification />
-      <update-notification />
-    </div>
+    <tabs />
   </div>
 </template>
 
@@ -16,20 +12,22 @@ import notifications from "./notifications.vue";
 import pushNotification from "./push-notification.vue";
 import deleteNotification from "./delete-notification.vue";
 import updateNotification from "./update-notification.vue";
+import tabs from "./tabs.vue";
 
 export default {
   components: {
     notifications,
-    "push-notification": pushNotification,
-    "delete-notification": deleteNotification,
-    "update-notification": updateNotification
+    tabs
   }
 };
 </script>
 
 <style lang="scss">
-.nav {
-  background-color: #eff3f6;
+.wrapper {
   font-family: "Montserrat", sans-serif;
+
+  .nav {
+    background-color: #eff3f6;
+  }
 }
 </style>

@@ -79,8 +79,7 @@ export default {
 
   .header {
     background-color: $lightBlue;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    @include border-top-radius(5px);
 
     color: #fff;
     font-size: 0.85em;
@@ -95,8 +94,7 @@ export default {
     overflow-x: hidden;
     max-height: 330px;
     background-color: #fff;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    @include border-bottom-radius(5px);
     padding: 0.5em 1rem;
 
     .list-enter-active,
