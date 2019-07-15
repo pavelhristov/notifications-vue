@@ -9,11 +9,14 @@
     </label>
 
     <button class="btn" @click="deleteNotification()">delete notification</button>
+    <notifier :bus="bus" />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Vue from "vue";
+import notifier from "./notifier.vue";
 
 export default {
   computed: mapState({
@@ -21,6 +24,7 @@ export default {
   }),
   data() {
     return {
+      bus: new Vue(),
       id: ""
     };
   },
@@ -29,8 +33,14 @@ export default {
       if (this.id) {
         this.$store.dispatch("notifications/deleteNotification", this.id);
         this.id = "";
+        this.bus.$emit("notify", "notification deleted", "success", 3000);
+      } else {
+        this.bus.$emit("notify", "select notification first", "danger", 3000);
       }
     }
+  },
+  components: {
+    notifier
   }
 };
 </script>

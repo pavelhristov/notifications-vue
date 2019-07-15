@@ -41,11 +41,14 @@
     </label>
 
     <button class="btn" @click="pushNotification()">push notification</button>
-    <span class="notifier" :class="notifier.status">{{ notifier.message }}</span>
+    <notifier :bus="bus" />
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import notifier from "./notifier.vue";
+
 export default {
   data() {
     return {
@@ -58,16 +61,13 @@ export default {
         requirement: "",
         expires: ""
       },
-      notifier: {
-        message: "",
-        status: ""
-      }
+      bus: new Vue()
     };
   },
   methods: {
     pushNotification() {
       if (!this.model.type) {
-        this.notify('"type" is required!', "warning", 3000);
+        this.bus.$emit("notify", '"type" is required!', "danger", 3000);
         return;
       }
 
@@ -90,38 +90,14 @@ export default {
       }
 
       this.$store.dispatch("notifications/pushNotification", notification);
-      this.notify("notification pushed!", "success", 3000);
-    },
-    notify(message, status, duration) {
-      if (this.notifier.timer) {
-        clearTimeout(this.notifier.timer);
-        this.notifier.timer = 0;
-      }
-
-      this.notifier.message = message || "";
-      this.notifier.status = status || "";
-      if (duration && Number.isInteger(+duration)) {
-        this.notifier.timer = setTimeout(() => {
-          this.notifier.message = "";
-          this.notifier.status = "";
-        }, duration);
-      }
+      this.bus.$emit("notify", "notification pushed!", "success", 3000);
     }
+  },
+  components: {
+    notifier
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.notifier {
-  &.warning {
-    color: red;
-  }
-
-  &.success {
-    color: green;
-  }
-}
-</style>
 
 <style>
 @import "../styles/simple-form.scss";

@@ -50,11 +50,14 @@
 
       <button class="btn" @click="updateNotification()">update notification</button>
     </div>
+    <notifier :bus="bus" />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import Vue from "vue";
+import notifier from "./notifier.vue";
 
 export default {
   computed: {
@@ -67,6 +70,7 @@ export default {
   },
   data() {
     return {
+      bus: new Vue(),
       id: "",
       model: {
         title: "",
@@ -84,6 +88,10 @@ export default {
   },
   methods: {
     updateNotification() {
+      if (!this.id) {
+        this.bus.$emit("notify", "select notification first", "danger", 3000);
+      }
+
       let notification = { id: this.id };
       for (const key in this.model) {
         if (
@@ -103,7 +111,7 @@ export default {
 
       this.$store.dispatch("notifications/updateNotification", notification);
       this.id = "";
-      // todo: notify
+      this.bus.$emit("notify", "notification updated", "success", 3000);
     },
     onSelectNotification(ev) {
       let notification = this.notifications.find(n => n.id === +this.id);
@@ -113,6 +121,9 @@ export default {
         }
       }
     }
+  },
+  components: {
+    notifier
   }
 };
 </script>
