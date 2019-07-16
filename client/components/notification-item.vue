@@ -10,8 +10,11 @@
       <div>
         <a v-if="notification.link" :href="notification.link">{{ notification.title }}</a>
         <span v-else class="title">{{ notification.title }}</span>
-        <span v-if="notification.text">{{ notification.text }}</span>
-        <span v-if="notification.requirement">{{ notification.text }}</span>
+        <span v-if="notification.text" class="text">{{ notification.text }}</span>
+        <div class="requirement" v-if="notification.requirement">
+          <span class="title">requirement:</span>
+          <span class="text">{{ notification.requirement }}</span>
+        </div>
       </div>
     </div>
     <div>
@@ -53,6 +56,8 @@ export default {
 </script>
 
 <style lang="scss">
+$textColor: #888;
+
 .notification-item {
   padding: 0.5em 0.3em;
   border-bottom: 1px solid #eee;
@@ -88,19 +93,27 @@ export default {
     > div:last-child {
       flex: 3;
       font-size: 0.7rem;
-      padding: 5px 21px 5px 16px;
+      padding: 0.5em 2em;
       letter-spacing: 0.3px;
-      color: #888;
 
-      .title {
-        color: black;
+      .text {
+        color: $textColor;
+      }
+
+      .requirement {
+        border-top: 1px dashed $textColor;
+
+        .title {
+          font-style: italic;
+        }
       }
     }
   }
 
   > div:last-child {
     text-align: right;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    color: $textColor;
   }
 }
 </style>

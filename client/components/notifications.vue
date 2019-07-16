@@ -7,13 +7,15 @@
         <span class="count">{{ notifications.filter(n=> n.type !== 'bonus').length }}</span>
       </span>
     </button>
-    <div class="drop-down" v-bind:class="{open: isOpen}">
-      <div class="header uppercase">Notifications</div>
-      <transition-group name="list" tag="div" class="notifications" v-if="notifications.length >0">
-        <notificationItem v-for="n in notifications" :key="n.id" :notificationId="n.id" />
-      </transition-group>
-      <div v-else class="uppercase no-notifications">there are no notifications</div>
-    </div>
+    <transition name="dropdown">
+      <div class="drop-down" v-if="isOpen" v-bind:class="{open: isOpen}">
+        <div class="header uppercase">Notifications</div>
+        <transition-group name="list" tag="div" class="notifications" v-if="notifications.length>0">
+          <notificationItem v-for="n in notifications" :key="n.id" :notificationId="n.id" />
+        </transition-group>
+        <div v-else class="uppercase no-notifications">there are no notifications</div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -30,7 +32,11 @@ export default {
       state.notifications.all
         .filter(n => !n.expired)
         .sort((a, b) =>
-          a.date < b.date || (!a.date && b.date) ? 1 : b.date < a.date || (a.date && !b.date) ? -1 : 0
+          a.date < b.date || (!a.date && b.date)
+            ? 1
+            : b.date < a.date || (a.date && !b.date)
+            ? -1
+            : 0
         ),
     isOpen: state => state.notifications.isOpen
   }),
@@ -77,7 +83,7 @@ export default {
   width: 307px;
   border-radius: 5px;
   box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.4);
-  @include opening-transition;
+  margin-top: 22px;
 
   .header {
     background-color: $lightBlue;
@@ -122,5 +128,19 @@ export default {
     padding: 1em;
     background-color: white;
   }
+}
+
+.dropdown-enter-active {
+  transition: margin 0.6s, opacity 0.6s ease-in-out;
+}
+
+.dropdown-leave-active {
+  transition: margin 1s, visibility 0.3s, opacity 0.3s ease-in-out;
+}
+
+.dropdown-enter,
+.dropdown-leave-to {
+  opacity: 0;
+  margin-top: 0;
 }
 </style>
